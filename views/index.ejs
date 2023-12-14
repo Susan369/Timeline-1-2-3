@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+   <p>Post a message</p>
+   <form action="/create-post" method="post">
+    <input type="text" id="post" name="post">
+    <button type="submit">Post</button>
+   </form>
+   <% if(err){ %>
+    <p><%= err %></p>
+<% } %>
+   <div>
+    <% if(posts.length>0){ %> <% posts.forEach(post=>{ %>
+          <h4><%= post.create_at %></h4>
+          <p><%= post.post %></p>
+          <% post.comments.forEach(comment => { %>
+            <p><%= comment.comment %></p>
+        <% }) %>
+        
+        
+        <form action="/posts/<%= post._id %>/create-comment" method="post">
+          <input type="text" id="comment" name="comment">
+          <button type="submit">Comment</button>
+        </form>
+        <% }) %> <% }else{ %>
+    <p>There is nothing to display..</p>
+  <% } %>
+   </div>
+</body>
+</html>
